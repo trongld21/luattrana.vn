@@ -1,0 +1,35 @@
+// Prisma Schema for PostgreSQL - Công ty Luật Trần Á
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Consultation {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String
+  service   String
+  message   String?
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+
+  @@map("consultations")
+}
+
+model LegalDocument {
+  id          String   @id @default(uuid())
+  title       String
+  category    String
+  description String
+  content     String
+  keywords    String
+  downloadUrl String?
+  createdAt   DateTime @default(now())
+
+  @@map("legal_documents")
+}
