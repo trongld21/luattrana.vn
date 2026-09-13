@@ -93,7 +93,7 @@ export default function Header({ onOpenConsultModal }) {
               </li>
               <li><a href="#calculator" className="nav-link"><i className="fa-solid fa-calculator"></i> Tính Án Phí</a></li>
               <li><a href="#legal-docs" className="nav-link">Biểu Mẫu & Án Lệ</a></li>
-              <li><a href="#contact" className="nav-link">Liên Hệ</a></li>
+              <li><a href="/bai-viet" className="nav-link">Bài Viết</a></li>
             </ul>
           </nav>
 
@@ -119,7 +119,7 @@ export default function Header({ onOpenConsultModal }) {
             </div>
             <button className="drawer-close" aria-label="Đóng menu" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-xmark"></i></button>
           </div>
-          <ul className="drawer-menu">
+          <ul className="drawer-menu"><li><a href="/bai-viet" className="mobile-nav-link">Kiến thức pháp lý & Bài viết</a></li>
             <li><a href="#hero" className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-house"></i> Trang Chủ</a></li>
             <li><a href="#about" className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-building-user"></i> Giới Thiệu</a></li>
             <li><a href="#services" className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-gavel"></i> Lĩnh Vực Dịch Vụ</a></li>

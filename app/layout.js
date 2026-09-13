@@ -2,6 +2,7 @@ import './globals.css';
 import './refined.css';
 
 export const metadata = {
+  metadataBase: new URL(process.env.SITE_URL || 'https://luattrana.vn'),
   title: 'Công ty Luật Trần Á | Luật Sư Tham Dự Toà Án & Dịch Vụ Đất Đai Uy Tín',
   description: 'Công ty Luật Trần Á chuyên cung cấp dịch vụ luật sư tranh tụng, tham dự toà án, tư vấn & giải quyết tranh chấp đất đai, nhà ở, dân sự, hình sự, hôn nhân & gia đình. Uy tín - Tận tâm - Hiệu quả.',
   keywords: 'luật trần á, công ty luật trần á, luật sư tranh tụng, luật sư đất đai, tham dự toà án, giải quyết tranh chấp đất đai, tư vấn ly hôn, luật sư hình sự',

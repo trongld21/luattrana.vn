@@ -18,9 +18,7 @@ export default function DocModal({ doc, onClose, onOpenConsultModal, onShowToast
           <div className="doc-preview-box" dangerouslySetInnerHTML={{ __html: doc.content }} />
         </div>
         <div className="modal-footer">
-          <button className="btn btn-gold" onClick={() => onShowToast('Đã bắt đầu tải file mẫu văn bản (.docx) thành công!')}>
-            <i className="fa-solid fa-download"></i> Tải Văn Bản Mẫu (.docx)
-          </button>
+          {doc.downloadUrl && <a className="btn btn-gold" href={doc.downloadUrl} target="_blank" rel="noopener noreferrer">Tải tài liệu ↗</a>}
           <button className="btn btn-primary" onClick={() => { onClose(); onOpenConsultModal(`Soạn thảo ${doc.title}`); }}>
             <i className="fa-solid fa-user-pen"></i> Nhờ Luật Sư Soạn Thảo Giúp
           </button>

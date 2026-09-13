@@ -8,24 +8,21 @@ export default function LegalDocsSearch({ onOpenDocModal }) {
   const [docs, setDocs] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState('');
   useEffect(() => {
-    fetchDocs();
-  }, [category, query]);
-
-  const fetchDocs = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/documents?category=${category}&q=${encodeURIComponent(query)}`);
-      const data = await res.json();
-      if (data.success) {
+    const controller = new AbortController();
+    setLoading(true); setError('');
+    const timer = setTimeout(async () => {
+      try {
+        const response = await fetch(`/api/documents?category=${category}&q=${encodeURIComponent(query)}`, { signal: controller.signal });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Không thể tải tài liệu.');
         setDocs(data.data);
-      }
-    } catch (err) {
-      console.error('Failed to fetch legal docs', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+      } catch (error) { if (error.name !== 'AbortError') { setDocs([]); setError(error.message); } }
+      finally { if (!controller.signal.aborted) setLoading(false); }
+    }, 250);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [category, query]);
 
   return (
     <section className="legal-docs-section" id="legal-docs">
@@ -62,10 +59,12 @@ export default function LegalDocsSearch({ onOpenDocModal }) {
           </div>
         </div>
 
+        {error && <p role="alert">{error}</p>}
+        {!loading && !error && docs.length === 0 && <p>Chưa có tài liệu phù hợp.</p>}
         {loading ? (
           <div className="text-center" style={{ padding: '40px 0', color: 'var(--color-text-muted)' }}>
             <i className="fa-solid fa-spinner fa-spin fa-2x"></i>
-            <p style={{ marginTop: '10px' }}>Đang kết nối PostgreSQL tra cứu biểu mẫu...</p>
+            <p style={{ marginTop: '10px' }}>Đang tra cứu tài liệu...</p>
           </div>
         ) : (
           <div className="docs-grid">

@@ -1,0 +1,7 @@
+'use client';
+import { useState } from 'react';
+export default function ChangePassword() {
+ const [open,setOpen]=useState(false),[error,setError]=useState(''),[busy,setBusy]=useState(false);
+ async function submit(event){event.preventDefault();setBusy(true);setError('');const data=Object.fromEntries(new FormData(event.currentTarget));if(data.newPassword!==data.confirmPassword){setError('Hai mật khẩu mới không khớp.');setBusy(false);return;}try{const response=await fetch('/api/admin/password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const body=await response.json();if(!response.ok)throw new Error(body.error);window.location.assign('/admin/login');}catch(error){setError(error.message);setBusy(false);}}
+ return <div><button type="button" onClick={()=>setOpen(!open)}>Đổi mật khẩu</button>{open&&<form onSubmit={submit} className="password-form"><label>Mật khẩu hiện tại<input name="currentPassword" type="password" required autoComplete="current-password" /></label><label>Mật khẩu mới<input name="newPassword" type="password" required minLength={12} maxLength={256} autoComplete="new-password" /></label><label>Nhập lại mật khẩu mới<input name="confirmPassword" type="password" required minLength={12} maxLength={256} autoComplete="new-password" /></label>{error&&<p role="alert">{error}</p>}<button disabled={busy}>{busy?'Đang lưu…':'Lưu & đăng nhập lại'}</button></form>}</div>;
+}

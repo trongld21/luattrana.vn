@@ -1,68 +1,21 @@
-import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-
+import { authorize, apiError } from '@/lib/admin';
+import { text } from '@/lib/content.mjs';
 export async function POST(request) {
   try {
-    const body = await request.json();
-    const { name, phone, service, message } = body;
-
-    if (!name || !phone) {
-      return NextResponse.json(
-        { success: false, error: 'Họ tên và Số điện thoại là bắt buộc' },
-        { status: 400 }
-      );
-    }
-
-    let consultation;
+    let data;
     try {
-      // Save directly to PostgreSQL via Prisma
-      consultation = await prisma.consultation.create({
-        data: {
-          name,
-          phone,
-          service: service || 'Chưa chọn lĩnh vực',
-          message: message || '',
-        },
-      });
-    } catch (dbError) {
-      console.warn('PostgreSQL database save fallback notice:', dbError.message);
-      // Fallback mock record if DB is not reachable
-      consultation = {
-        id: `local-${Date.now()}`,
-        name,
-        phone,
-        service: service || 'Chưa chọn lĩnh vực',
-        message: message || '',
-        status: 'PENDING',
-        createdAt: new Date().toISOString(),
-      };
-    }
-
-    return NextResponse.json({
-      success: true,
-      message: 'Đăng ký tư vấn thành công!',
-      data: consultation,
-    });
-  } catch (error) {
-    return NextResponse.json(
-      { success: false, error: 'Có lỗi xảy ra khi xử lý yêu cầu' },
-      { status: 500 }
-    );
-  }
+      const body = await request.json();
+      data = { name: text(body.name,150,true), phone: text(body.phone,30,true), service: text(body.service || 'Chưa chọn lĩnh vực',200), message: text(body.message || '',5000) };
+      if (!/^[+\d\s().-]{8,30}$/.test(data.phone)) throw new Error('Số điện thoại không hợp lệ.');
+    } catch (error) { return Response.json({ success: false, error: error.message }, { status: 400 }); }
+    await prisma.consultation.create({ data });
+    return Response.json({ success: true, message: 'Đã nhận yêu cầu tư vấn.' }, { status: 201 });
+  } catch { return Response.json({ success: false, error: 'Chưa lưu được yêu cầu. Vui lòng thử lại hoặc liên hệ hotline.' }, { status: 503 }); }
 }
-
-export async function GET() {
+export async function GET(request) {
   try {
-    let consultations = [];
-    try {
-      consultations = await prisma.consultation.findMany({
-        orderBy: { createdAt: 'desc' },
-      });
-    } catch (err) {
-      consultations = [];
-    }
-    return NextResponse.json({ success: true, data: consultations });
-  } catch (error) {
-    return NextResponse.json({ success: false, data: [] });
-  }
+    const denied = await authorize(request); if (denied) return denied;
+    return Response.json({ success: true, data: await prisma.consultation.findMany({ take: 100, orderBy: { createdAt: 'desc' } }) });
+  } catch (error) { return apiError(error); }
 }

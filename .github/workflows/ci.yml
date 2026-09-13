@@ -33,5 +33,7 @@ jobs:
         run: npm ci
       - name: Validate Prisma schema
         run: npx --no-install prisma validate
+      - name: Test CMS validation and security
+        run: npm test
       - name: Build production application
         run: npm run build
