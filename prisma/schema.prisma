@@ -35,6 +35,10 @@ model LegalDocument {
 }
 
 model AdminUser {
+  name String @default("")
+  role String @default("STAFF")
+  permissions String[] @default([])
+  isActive Boolean @default(true)
   id String @id @default(cuid())
   email String @unique
   passwordHash String

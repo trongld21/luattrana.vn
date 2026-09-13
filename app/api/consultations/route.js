@@ -15,7 +15,7 @@ export async function POST(request) {
 }
 export async function GET(request) {
   try {
-    const denied = await authorize(request); if (denied) return denied;
+    const denied = await authorize(request, 'consultations'); if (denied) return denied;
     return Response.json({ success: true, data: await prisma.consultation.findMany({ take: 100, orderBy: { createdAt: 'desc' } }) });
   } catch (error) { return apiError(error); }
 }

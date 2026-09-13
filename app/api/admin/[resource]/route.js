@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request, { params }) {
   try {
     params = await params;
-    const denied = await authorize(request); if (denied) return denied;
+    const denied = await authorize(request, params.resource); if (denied) return denied;
     const model = models[params.resource]; if (!model) return Response.json({ error: 'Không tìm thấy.' }, { status: 404 });
     const url = new URL(request.url), q = (url.searchParams.get('q') || '').slice(0, 200);
     const page = Math.max(1, Math.min(100000, Number(url.searchParams.get('page')) || 1));
@@ -19,7 +19,7 @@ export async function GET(request, { params }) {
 export async function POST(request, { params }) {
   try {
     params = await params;
-    const denied = await authorize(request); if (denied) return denied;
+    const denied = await authorize(request, params.resource); if (denied) return denied;
     const model = models[params.resource]; if (!model) return Response.json({ error: 'Không tìm thấy.' }, { status: 404 });
     if (params.resource === 'media') {
       if (Number(request.headers.get('content-length')) > 3 * 1024 * 1024) return Response.json({ error: 'Ảnh tối đa 2 MB.' }, { status: 413 });

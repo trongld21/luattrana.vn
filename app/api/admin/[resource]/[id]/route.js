@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 export async function PUT(request, { params }) {
   try {
     params = await params;
-    const denied = await authorize(request); if (denied) return denied;
+    const denied = await authorize(request, params.resource); if (denied) return denied;
     const model = models[params.resource]; if (!model) return Response.json({ error: 'Không tìm thấy.' }, { status: 404 });
     let data;
     try { const body = await request.json(); data = params.resource === 'media' ? { name: text(body.name, 200, true) } : payload(params.resource, body); } catch (error) { return Response.json({ error: error.message }, { status: 400 }); }
@@ -19,7 +19,7 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     params = await params;
-    const denied = await authorize(request); if (denied) return denied;
+    const denied = await authorize(request, params.resource); if (denied) return denied;
     const model = models[params.resource]; if (!model) return Response.json({ error: 'Không tìm thấy.' }, { status: 404 });
     if (params.resource === 'media') {
       const url = `/media/${params.id}`;

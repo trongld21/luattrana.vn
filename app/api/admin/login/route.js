@@ -12,7 +12,7 @@ export async function POST(request) {
     const user = await prisma.adminUser.findUnique({ where: { email: email.toLowerCase().trim() } });
     if (user?.lockedUntil > new Date()) return Response.json({ error: 'Tạm khóa đăng nhập. Thử lại sau 15 phút.' }, { status: 429 });
     const valid = verifyPassword(password, user?.passwordHash || dummyHash);
-    if (!user || !valid) {
+    if (!user || !valid || !user.isActive) {
       if (user) {
         const updated = await prisma.adminUser.update({ where: { id: user.id }, data: { failedAttempts: { increment: 1 } } });
         if (updated.failedAttempts >= 5) await prisma.adminUser.update({ where: { id: user.id }, data: { failedAttempts: 0, lockedUntil: new Date(Date.now() + 900000) } });

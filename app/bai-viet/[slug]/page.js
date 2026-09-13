@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
+import { canAccess } from '@/lib/permissions.mjs';
 import { currentAdmin } from '@/lib/admin';
 import { cleanHtml } from '@/lib/content.mjs';
 import { siteUrl } from '@/lib/site';
 import '../posts.css';
 export const dynamic = 'force-dynamic';
 async function findPost(slug, preview) {
-  const admin = preview === '1' && await currentAdmin();
+  const admin = preview === '1' && canAccess(await currentAdmin(), 'posts');
   return prisma.post.findFirst({ where: { slug, ...(!admin ? { status: 'PUBLISHED', publishedAt: { lte: new Date() } } : {}) }, include: { category:true } });
 }
 export async function generateMetadata({ params, searchParams }) {

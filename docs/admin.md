@@ -10,7 +10,7 @@ Node.js 22 và PostgreSQL. Giữ bí mật trong `.env`, không commit.
 4. Chạy `npm run dev -- --port 3001` hoặc production `npm run build && npm start` sau reverse proxy HTTPS.
 5. Mở `/admin/login`.
 
-Không có tài khoản hoặc mật khẩu mặc định. Admin có toàn quyền quản trị; chưa có vai trò biên tập viên hạn chế.
+Không có tài khoản hoặc mật khẩu mặc định. Admin có toàn quyền quản trị. Nhân viên chỉ truy cập các màn admin đã cấp.
 
 ## Chức năng
 
@@ -31,3 +31,17 @@ Production phải có HTTPS và SITE_URL đúng. Reverse proxy cần chuyển ti
 Kiểm tra trước deploy: `npm test && npm run build`; chạy `npm run db:deploy` một lần trong quy trình release trước khi chạy phiên bản mới. Không chạy `prisma db push` trên production.
 
 Đổi mật khẩu trong thanh bên admin bằng nút **Đổi mật khẩu**. Thao tác thu hồi mọi session của tài khoản và yêu cầu đăng nhập lại.
+
+## Nhân sự & phân quyền
+
+Vào **Nhân sự & phân quyền → Thêm mới**, nhập tên, email, mật khẩu và chọn các màn được phép truy cập. Ví dụ chỉ tích **Bài viết SEO** thì nhân viên chỉ có màn này, được tạo/sửa/xóa/xuất bản bài viết và xem trước bản nháp. Quyền theo màn áp dụng cho toàn bộ dữ liệu của màn, không giới hạn theo tác giả.
+
+- Các quyền độc lập: Bài viết SEO, Danh mục, Tài liệu pháp lý, Yêu cầu tư vấn, Thư viện ảnh.
+- Nhân viên viết bài được đọc danh sách tên/id danh mục để chọn trong bài, nhưng không có quyền quản lý danh mục. Upload ảnh chỉ có khi được cấp thêm Thư viện ảnh; nếu không vẫn có thể nhập URL ảnh.
+- Màn nhân sự chỉ admin thấy và gọi API được. Nhân viên không thể tự cấp quyền hoặc tạo tài khoản admin.
+- Sửa quyền, đặt lại mật khẩu, khóa tài khoản sẽ thu hồi mọi session cũ. Tài khoản không có quyền nào vẫn đăng nhập được nhưng chỉ thấy thông báo chưa được phân công. Tài khoản khóa không đăng nhập được.
+- Tài khoản admin được bảo vệ khỏi sửa/xóa tại màn nhân sự. Tạo admin bổ sung bằng lệnh vận hành `npm run admin:create`.
+- Tài khoản tồn tại trước migration phân quyền giữ vai trò ADMIN. Tài khoản mới mặc định STAFF, không có quyền.
+- API kiểm tra quyền hiện tại trong database ở mỗi yêu cầu; menu đồng bộ khi quay lại tab và định kỳ 60 giây. Thu hồi session có hiệu lực ngay ở lần gọi API tiếp theo.
+
+Kiểm thử quyền: `TEST_BASE_URL=http://localhost:3011 node --env-file=.env scripts/smoke-permissions.mjs` với server kiểm thử đang chạy. Script tạo dữ liệu riêng và tự xóa sau kiểm thử.

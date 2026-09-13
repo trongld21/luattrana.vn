@@ -14,7 +14,7 @@ async function request(path,method='GET',body,authenticated=true,origin=process.
 }
 async function json(path,method,body,status=200){const response=await request(path,method,body);const data=await response.json();assert.equal(response.status,status,JSON.stringify(data));return data.data;}
 try{
- user=await prisma.adminUser.create({data:{email:`${prefix}@example.invalid`,passwordHash:hashPassword(password)}});
+ user=await prisma.adminUser.create({data:{role:'ADMIN',email:`${prefix}@example.invalid`,passwordHash:hashPassword(password)}});
  assert.equal((await request('/api/admin/posts')).status,401);
  assert.equal((await request('/api/consultations')).status,401);
  assert.equal((await request('/admin')).status,307);
