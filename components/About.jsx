@@ -1,6 +1,9 @@
+import LegalBackgroundIcons from './LegalBackgroundIcons';
+
 export default function About() {
   return (
     <section className="about-section" id="about">
+      <LegalBackgroundIcons variant="light" density="low" enableParallax />
       <div className="container">
         <div className="about-grid">
           <div className="about-image-wrapper">

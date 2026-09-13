@@ -1,8 +1,10 @@
 'use client';
+import LegalBackgroundIcons from './LegalBackgroundIcons';
 
 export default function Hero({ onOpenConsultModal }) {
   return (
     <section className="hero-section" id="hero">
+      <LegalBackgroundIcons variant="hero" density="medium" enableParallax enablePointerMotion />
       <div className="container hero-container">
         <div className="hero-content">
           <div className="hero-badge"><span /> CÔNG TY LUẬT TRẦN Á</div>

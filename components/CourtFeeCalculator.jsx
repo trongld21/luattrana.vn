@@ -1,6 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import LegalBackgroundIcons from './LegalBackgroundIcons';
+
+function AnimatedCurrency({ value, className }) {
+  const previous = useRef(value);
+  const [display, setDisplay] = useState(value);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setDisplay(value); previous.current = value; return; }
+    const from = previous.current;
+    const started = performance.now();
+    let frame;
+    const tick = now => {
+      const progress = Math.min(1, (now - started) / 450);
+      setDisplay(Math.round(from + (value - from) * (1 - Math.pow(1 - progress, 3))));
+      if (progress < 1) frame = requestAnimationFrame(tick); else previous.current = value;
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+  return <div className={className} aria-live="polite">{new Intl.NumberFormat('vi-VN').format(display)} VNĐ</div>;
+}
 
 export default function CourtFeeCalculator({ onOpenConsultModal }) {
   const [caseType, setCaseType] = useState('civil_value');
@@ -24,6 +44,7 @@ export default function CourtFeeCalculator({ onOpenConsultModal }) {
   };
 
   const amount = parseFormattedNumber(disputeValue);
+  const requiresAmount = caseType === 'civil_value' || caseType === 'marriage_property' || caseType === 'business';
   let totalFee = 0;
   let explanation = '';
 
@@ -53,9 +74,11 @@ export default function CourtFeeCalculator({ onOpenConsultModal }) {
   }
 
   const advanceFee = totalFee * 0.5;
+  const hasAmount = !requiresAmount || disputeValue.trim() !== '';
 
   return (
     <section className="calculator-section" id="calculator">
+      <LegalBackgroundIcons variant="calculator" density="low" enableParallax />
       <div className="container">
         <div className="calc-box">
           <div className="calc-header">
@@ -78,7 +101,7 @@ export default function CourtFeeCalculator({ onOpenConsultModal }) {
                 </select>
               </div>
 
-              {(caseType === 'civil_value' || caseType === 'marriage_property' || caseType === 'business') && (
+              {requiresAmount && (
                 <div className="form-group">
                   <label htmlFor="disputeValue"><i className="fa-solid fa-money-bill-wave"></i> Giá trị tranh chấp (VNĐ):</label>
                   <input
@@ -100,17 +123,17 @@ export default function CourtFeeCalculator({ onOpenConsultModal }) {
 
             <div className="calc-results">
               <div className="result-card">
-                <span className="result-label">Tạm Ứng Án Phí Sơ Thẩm Phải Nộp (50% Án Phí):</span>
-                <div className="result-price">{formatCurrency(advanceFee)}</div>
+                <span className="result-label">Tạm ứng án phí sơ thẩm phải nộp (50% án phí)</span>
+                {hasAmount ? <AnimatedCurrency className="result-price" value={advanceFee} /> : <div className="result-price is-empty">—</div>}
               </div>
 
               <div className="result-card secondary">
-                <span className="result-label">Mức Án Phí Sơ Thẩm Chính Thức Estimator:</span>
-                <div className="result-price-sub">{formatCurrency(totalFee)}</div>
+                <span className="result-label">Mức án phí sơ thẩm ước tính</span>
+                {hasAmount ? <AnimatedCurrency className="result-price-sub" value={totalFee} /> : <div className="result-price-sub is-empty">—</div>}
               </div>
 
               <div className="result-explain">
-                <strong>Cách tính:</strong> {explanation}
+                <strong>{hasAmount ? 'Cách tính:' : 'Chưa đủ dữ liệu:'}</strong> {hasAmount ? explanation : 'Nhập giá trị tranh chấp để xem mức án phí ước tính.'}
               </div>
 
               <div className="calc-cta text-center">

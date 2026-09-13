@@ -19,7 +19,7 @@ export default function Motion() {
           observer.unobserve(entry.target);
         }
       }), { threshold: 0.08 });
-      document.querySelectorAll('.about-image-wrapper, .about-text-content, .section-header, .calc-box, .contact-info-panel, .contact-form-panel, .process-step').forEach((node, index) => {
+      document.querySelectorAll('.trust-inner, .about-image-wrapper, .about-text-content, .section-header, .practice-list article, .commitment-copy, .calc-box, .doc-card, .home-journal article, .contact-info-panel, .contact-form-panel, .process-step').forEach((node, index) => {
         if (node.getBoundingClientRect().top < window.innerHeight) return;
         node.style.setProperty('--reveal-delay', `${index % 3 * 90}ms`);
         node.classList.add('reveal-item', 'reveal-pending');

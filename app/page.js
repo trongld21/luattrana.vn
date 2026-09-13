@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import Motion from '@/components/Motion';
 import Process from '@/components/Process';
+import TrustStatement from '@/components/TrustStatement';
+import Commitment from '@/components/Commitment';
+import HomeArticles from '@/components/HomeArticles';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -36,11 +39,14 @@ export default function Home() {
       <Motion />
       <Header onOpenConsultModal={handleOpenConsultModal} />
       <Hero onOpenConsultModal={handleOpenConsultModal} />
+      <TrustStatement />
       <About />
       <PracticeAreas onOpenConsultModal={handleOpenConsultModal} />
+      <Commitment />
       <Process />
       <CourtFeeCalculator onOpenConsultModal={handleOpenConsultModal} />
       <LegalDocsSearch onOpenDocModal={(doc) => setSelectedDoc(doc)} />
+      <HomeArticles />
       <ContactSection onShowToast={showToast} />
       <Footer />
       <FloatingWidgets onOpenConsultModal={handleOpenConsultModal} />

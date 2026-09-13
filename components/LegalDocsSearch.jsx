@@ -62,9 +62,8 @@ export default function LegalDocsSearch({ onOpenDocModal }) {
         {error && <p role="alert">{error}</p>}
         {!loading && !error && docs.length === 0 && <p>Chưa có tài liệu phù hợp.</p>}
         {loading ? (
-          <div className="text-center" style={{ padding: '40px 0', color: 'var(--color-text-muted)' }}>
-            <i className="fa-solid fa-spinner fa-spin fa-2x"></i>
-            <p style={{ marginTop: '10px' }}>Đang tra cứu tài liệu...</p>
+          <div className="docs-skeleton" aria-live="polite" aria-label="Đang tra cứu tài liệu">
+            {[1, 2, 3].map(item => <div key={item}><i></i><span></span><span></span></div>)}
           </div>
         ) : (
           <div className="docs-grid">

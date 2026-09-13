@@ -24,11 +24,11 @@ export default function FloatingWidgets({ onOpenConsultModal }) {
   return (
     <>
       <div className="floating-widgets">
-        <a href="https://zalo.me/0918439995" target="_blank" rel="noopener noreferrer" className="float-btn zalo-float" title="Tư vấn qua Zalo">
+        <a href="https://zalo.me/0918439995" target="_blank" rel="noopener noreferrer" className="float-btn zalo-float" aria-label="Tư vấn qua Zalo">
           <i className="fa-solid fa-comment-dots"></i>
           <span className="float-tooltip">Zalo 0918.439.995</span>
         </a>
-        <a href="tel:0918439995" className="float-btn call-float" title="Gọi ngay cho Luật sư">
+        <a href="tel:0918439995" className="float-btn call-float" aria-label="Gọi ngay cho Luật sư">
           <i className="fa-solid fa-phone-volume"></i>
           <span className="float-tooltip">Gọi 0918.439.995</span>
         </a>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import LegalBackgroundIcons from './LegalBackgroundIcons';
 
 export default function ContactSection({ onShowToast }) {
   const [formData, setFormData] = useState({
@@ -10,10 +11,14 @@ export default function ContactSection({ onShowToast }) {
     message: '',
   });
   const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState('idle');
+  const [formError, setFormError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return;
     setSubmitting(true);
+    setStatus('idle'); setFormError('');
 
     try {
       const res = await fetch('/api/consultations', {
@@ -24,16 +29,17 @@ export default function ContactSection({ onShowToast }) {
       const data = await res.json();
 
       if (data.success) {
+        setStatus('success');
         onShowToast(`Cảm ơn Quý khách ${formData.name}! Thông tin đã được lưu vào hệ thống. Luật sư sẽ liên hệ lại qua SĐT ${formData.phone} ngay lập tức.`);
         setFormData({ name: '', phone: '', service: 'Tham dự toà án & Tranh tụng', message: '' });
         setTimeout(() => {
           window.open('https://zalo.me/0918439995', '_blank');
         }, 1500);
       } else {
-        onShowToast('Lỗi: ' + (data.error || 'Vui lòng thử lại'));
+        setStatus('error'); setFormError(data.error || 'Vui lòng thử lại.');
       }
     } catch (err) {
-      onShowToast('Cảm ơn quý khách! Đã gửi thông tin yêu cầu tư vấn thành công.');
+      setStatus('error'); setFormError('Chưa thể gửi yêu cầu. Vui lòng thử lại hoặc gọi hotline 0918.439.995.');
     } finally {
       setSubmitting(false);
     }
@@ -41,6 +47,7 @@ export default function ContactSection({ onShowToast }) {
 
   return (
     <section className="contact-section" id="contact">
+      <LegalBackgroundIcons variant="contact" density="low" enableParallax />
       <div className="container">
         <div className="contact-grid">
           <div className="contact-info-panel">
@@ -99,6 +106,8 @@ export default function ContactSection({ onShowToast }) {
               <p>Vui lòng điền thông tin bên dưới, thông tin sẽ được lưu trữ bảo mật vào PostgreSQL và Luật sư sẽ liên hệ lại ngay.</p>
 
               <form onSubmit={handleSubmit} className="site-form">
+                {status === 'success' && <div className="form-success" role="status"><span>✓</span><div><strong>Yêu cầu đã được tiếp nhận.</strong><p>Luật sư sẽ liên hệ lại với Quý khách.</p></div></div>}
+                {status === 'error' && <p className="form-error" role="alert">{formError}</p>}
                 <div className="form-row">
                   <div className="form-group col-6">
                     <label htmlFor="cName">Họ và tên Quý khách *</label>
@@ -158,7 +167,7 @@ export default function ContactSection({ onShowToast }) {
                 </div>
 
                 <button type="submit" className="btn btn-gold btn-block btn-lg" disabled={submitting}>
-                  {submitting ? <i className="fa-solid fa-spinner fa-spin"></i> : <i className="fa-solid fa-paper-plane"></i>} Gửi Yêu Cầu Tư Vấn Ngay
+                  {submitting ? <i className="fa-solid fa-spinner fa-spin"></i> : null} {submitting ? 'Đang gửi yêu cầu…' : 'Gửi yêu cầu tư vấn'}
                 </button>
               </form>
             </div>

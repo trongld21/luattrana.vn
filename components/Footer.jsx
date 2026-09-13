@@ -2,6 +2,7 @@ export default function Footer() {
   return (
     <footer className="main-footer">
       <div className="container">
+        <div className="footer-statement" aria-hidden="true">Vững pháp lý.<br />Vẹn niềm tin.</div>
         <div className="footer-top">
           <div className="footer-col footer-brand">
             <div className="f-logo">
@@ -21,23 +22,23 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="f-title">Dịch Vụ Trọng Tâm</h4>
             <ul className="f-links">
-              <li><a href="#services"><i className="fa-solid fa-angle-right"></i> Luật sư Tham dự toà án</a></li>
-              <li><a href="#services"><i className="fa-solid fa-angle-right"></i> Dịch vụ pháp lý Đất đai</a></li>
-              <li><a href="#services"><i className="fa-solid fa-angle-right"></i> Giải quyết tranh chấp Sổ đỏ</a></li>
-              <li><a href="#services"><i className="fa-solid fa-angle-right"></i> Bào chữa vụ án Hình sự</a></li>
-              <li><a href="#services"><i className="fa-solid fa-angle-right"></i> Tư vấn Ly hôn & Tài sản</a></li>
-              <li><a href="#services"><i className="fa-solid fa-angle-right"></i> Tranh chấp Di sản thừa kế</a></li>
+              <li><a href="/linh-vuc/tranh-tung-toa-an"><i className="fa-solid fa-angle-right"></i> Luật sư Tham dự toà án</a></li>
+              <li><a href="/linh-vuc/dat-dai-bat-dong-san"><i className="fa-solid fa-angle-right"></i> Dịch vụ pháp lý Đất đai</a></li>
+              <li><a href="/linh-vuc/bao-chua-hinh-su"><i className="fa-solid fa-angle-right"></i> Bào chữa vụ án Hình sự</a></li>
+              <li><a href="/linh-vuc/hon-nhan-gia-dinh"><i className="fa-solid fa-angle-right"></i> Hôn nhân & Gia đình</a></li>
+              <li><a href="/linh-vuc/dan-su-thua-ke"><i className="fa-solid fa-angle-right"></i> Dân sự & Thừa kế</a></li>
+              <li><a href="/linh-vuc/doanh-nghiep-thuong-mai"><i className="fa-solid fa-angle-right"></i> Doanh nghiệp & Thương mại</a></li>
             </ul>
           </div>
 
           <div className="footer-col">
             <h4 className="f-title">Tiện Ích Pháp Lý</h4>
             <ul className="f-links">
-              <li><a href="#calculator"><i className="fa-solid fa-angle-right"></i> Tra cứu Án phí Tòa án</a></li>
-              <li><a href="#legal-docs"><i className="fa-solid fa-angle-right"></i> Mẫu Đơn khởi kiện đất đai</a></li>
-              <li><a href="#legal-docs"><i className="fa-solid fa-angle-right"></i> Mẫu Đơn xin ly hôn</a></li>
-              <li><a href="#legal-docs"><i className="fa-solid fa-angle-right"></i> Mẫu Hợp đồng đặt cọc nhà đất</a></li>
-              <li><a href="#process"><i className="fa-solid fa-angle-right"></i> Quy trình làm việc với Luật sư</a></li>
+              <li><a href="/#calculator"><i className="fa-solid fa-angle-right"></i> Tra cứu Án phí Tòa án</a></li>
+              <li><a href="/#legal-docs"><i className="fa-solid fa-angle-right"></i> Mẫu Đơn khởi kiện đất đai</a></li>
+              <li><a href="/#legal-docs"><i className="fa-solid fa-angle-right"></i> Mẫu Đơn xin ly hôn</a></li>
+              <li><a href="/#legal-docs"><i className="fa-solid fa-angle-right"></i> Mẫu Hợp đồng đặt cọc nhà đất</a></li>
+              <li><a href="/#process"><i className="fa-solid fa-angle-right"></i> Quy trình làm việc với Luật sư</a></li>
             </ul>
           </div>
 
@@ -63,7 +64,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom text-center">
-          <p>&copy; 2026 <strong>CÔNG TY LUẬT TRẦN Á</strong>. All Rights Reserved. Xây dựng trên nền tảng Next.js & PostgreSQL.</p>
+          <p>&copy; 2026 <strong>CÔNG TY LUẬT TRẦN Á</strong>. All Rights Reserved.</p><div><a href="/chinh-sach-bao-mat">Bảo mật</a><a href="/dieu-khoan">Điều khoản</a></div>
         </div>
       </div>
     </footer>

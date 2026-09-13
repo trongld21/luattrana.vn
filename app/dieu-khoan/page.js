@@ -1,0 +1,3 @@
+import Link from 'next/link';
+export const metadata = { title: 'Điều khoản sử dụng | Công ty Luật Trần Á' };
+export default function Terms(){return <main className="legal-page"><Link href="/">← Công ty Luật Trần Á</Link><span>THÔNG TIN PHÁP LÝ</span><h1>Điều khoản sử dụng</h1><p>Nội dung trên website được cung cấp nhằm mục đích tham khảo chung và không thay thế ý kiến pháp lý dựa trên hồ sơ cụ thể.</p><h2>Thông tin tham khảo</h2><p>Quy định pháp luật có thể thay đổi và kết quả xử lý phụ thuộc vào tình tiết của từng vụ việc. Việc gửi biểu mẫu liên hệ chưa tự động thiết lập quan hệ luật sư–khách hàng.</p><h2>Quyền sở hữu nội dung</h2><p>Nội dung thuộc Công ty Luật Trần Á, trừ tài liệu có ghi nguồn khác. Vui lòng liên hệ trước khi sao chép hoặc sử dụng lại.</p></main>}
