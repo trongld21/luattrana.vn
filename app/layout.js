@@ -5,7 +5,7 @@ import './premium.css';
 export const metadata = {
   metadataBase: new URL(process.env.SITE_URL || 'https://luattrana.vn'),
   title: 'Công ty Luật Trần Á | Luật Sư Tham Dự Toà Án & Dịch Vụ Đất Đai Uy Tín',
-  description: 'Công ty Luật Trần Á chuyên cung cấp dịch vụ luật sư tranh tụng, tham dự toà án, tư vấn & giải quyết tranh chấp đất đai, nhà ở, dân sự, hình sự, hôn nhân & gia đình. Uy tín - Tận tâm - Hiệu quả.',
+  description: 'Công ty Luật Trần Á chuyên cung cấp dịch vụ luật sư tranh tụng, tham dự toà án, tư vấn & giải quyết tranh chấp đất đai, nhà ở, dân sự, hình sự, hôn nhân & gia đình. Trách nhiệm – Niềm tin.',
   keywords: 'luật trần á, công ty luật trần á, luật sư tranh tụng, luật sư đất đai, tham dự toà án, giải quyết tranh chấp đất đai, tư vấn ly hôn, luật sư hình sự',
   authors: [{ name: 'Công ty Luật Trần Á' }],
   openGraph: {
@@ -13,7 +13,7 @@ export const metadata = {
     description: 'Chuyên nghiệp trong tham dự toà án, tranh tụng và giải quyết các dịch vụ pháp lý về đất đai, dân sự, hình sự.',
     images: ['/logo.svg'],
   },
-  twitter: { card: 'summary_large_image', title: 'Công ty Luật Trần Á', description: 'Vững pháp lý. Vẹn niềm tin.', images: ['/hero-bg.png'] },
+  twitter: { card: 'summary_large_image', title: 'Công ty Luật Trần Á', description: 'Trách nhiệm – Niềm tin', images: ['/hero-bg.png'] },
   icons: {
     icon: '/logo.svg',
   },
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context':'https://schema.org', '@type':['LegalService','Organization'], name:'Công ty Luật Trần Á', url:process.env.SITE_URL || 'https://luattrana.vn', telephone:'+84918439995', sameAs:['https://www.facebook.com/Luattrana020726/'] }).replace(/</g, '\\u003c') }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context':'https://schema.org', '@type':['LegalService','Organization'], name:'Công ty Luật Trần Á', url:process.env.SITE_URL || 'https://luattrana.vn', telephone:'+84939369489', sameAs:['https://www.facebook.com/Luattrana020726/'] }).replace(/</g, '\\u003c') }} />
       </body>
     </html>
   );

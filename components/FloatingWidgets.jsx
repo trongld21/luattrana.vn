@@ -24,13 +24,13 @@ export default function FloatingWidgets({ onOpenConsultModal }) {
   return (
     <>
       <div className="floating-widgets">
-        <a href="https://zalo.me/0918439995" target="_blank" rel="noopener noreferrer" className="float-btn zalo-float" aria-label="Tư vấn qua Zalo">
+        <a href="https://zalo.me/0939369489" target="_blank" rel="noopener noreferrer" className="float-btn zalo-float" aria-label="Tư vấn qua Zalo">
           <i className="fa-solid fa-comment-dots"></i>
-          <span className="float-tooltip">Zalo 0918.439.995</span>
+          <span className="float-tooltip">Zalo 0939 369 489</span>
         </a>
-        <a href="tel:0918439995" className="float-btn call-float" aria-label="Gọi ngay cho Luật sư">
+        <a href="tel:0939369489" className="float-btn call-float" aria-label="Gọi ngay cho Luật sư">
           <i className="fa-solid fa-phone-volume"></i>
-          <span className="float-tooltip">Gọi 0918.439.995</span>
+          <span className="float-tooltip">Gọi 0939 369 489</span>
         </a>
         <button className={`float-btn back-to-top ${showTop ? 'show' : ''}`} onClick={scrollToTop} title="Về đầu trang">
           <i className="fa-solid fa-arrow-up"></i>
@@ -39,11 +39,11 @@ export default function FloatingWidgets({ onOpenConsultModal }) {
 
       <div className="mobile-action-dock">
         <div className="dock-grid">
-          <a href="tel:0918439995" className="dock-item call-dock">
+          <a href="tel:0939369489" className="dock-item call-dock">
             <i className="fa-solid fa-phone-volume"></i>
-            <span>Gọi Hotline</span>
+            <span>Gọi Điện thoại</span>
           </a>
-          <a href="https://zalo.me/0918439995" target="_blank" rel="noopener noreferrer" className="dock-item primary-dock">
+          <a href="https://zalo.me/0939369489" target="_blank" rel="noopener noreferrer" className="dock-item primary-dock">
             <i className="fa-solid fa-comment-dots"></i>
             <span>Chat Zalo</span>
           </a>

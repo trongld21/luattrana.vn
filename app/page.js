@@ -10,18 +10,14 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import PracticeAreas from '@/components/PracticeAreas';
-import CourtFeeCalculator from '@/components/CourtFeeCalculator';
-import LegalDocsSearch from '@/components/LegalDocsSearch';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import FloatingWidgets from '@/components/FloatingWidgets';
 import ConsultModal from '@/components/ConsultModal';
-import DocModal from '@/components/DocModal';
 
 export default function Home() {
   const [consultModalOpen, setConsultModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState('');
-  const [selectedDoc, setSelectedDoc] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
 
   const showToast = (msg) => {
@@ -44,8 +40,6 @@ export default function Home() {
       <PracticeAreas onOpenConsultModal={handleOpenConsultModal} />
       <Commitment />
       <Process />
-      <CourtFeeCalculator onOpenConsultModal={handleOpenConsultModal} />
-      <LegalDocsSearch onOpenDocModal={(doc) => setSelectedDoc(doc)} />
       <HomeArticles />
       <ContactSection onShowToast={showToast} />
       <Footer />
@@ -59,12 +53,6 @@ export default function Home() {
         onShowToast={showToast}
       />
 
-      <DocModal
-        doc={selectedDoc}
-        onClose={() => setSelectedDoc(null)}
-        onOpenConsultModal={handleOpenConsultModal}
-        onShowToast={showToast}
-      />
 
       {/* Toast Notification */}
       {toastMessage && (

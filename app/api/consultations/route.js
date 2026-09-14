@@ -11,7 +11,7 @@ export async function POST(request) {
     } catch (error) { return Response.json({ success: false, error: error.message }, { status: 400 }); }
     await prisma.consultation.create({ data });
     return Response.json({ success: true, message: 'Đã nhận yêu cầu tư vấn.' }, { status: 201 });
-  } catch { return Response.json({ success: false, error: 'Chưa lưu được yêu cầu. Vui lòng thử lại hoặc liên hệ hotline.' }, { status: 503 }); }
+  } catch { return Response.json({ success: false, error: 'Chưa lưu được yêu cầu. Vui lòng thử lại hoặc liên hệ điện thoại.' }, { status: 503 }); }
 }
 export async function GET(request) {
   try {

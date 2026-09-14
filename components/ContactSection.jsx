@@ -1,5 +1,6 @@
 'use client';
 
+import { services } from '@/lib/services';
 import { useState } from 'react';
 import LegalBackgroundIcons from './LegalBackgroundIcons';
 
@@ -7,7 +8,7 @@ export default function ContactSection({ onShowToast }) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    service: 'Tham dự toà án & Tranh tụng',
+    service: services[0].title,
     message: '',
   });
   const [submitting, setSubmitting] = useState(false);
@@ -31,15 +32,15 @@ export default function ContactSection({ onShowToast }) {
       if (data.success) {
         setStatus('success');
         onShowToast(`Cảm ơn Quý khách ${formData.name}! Thông tin đã được lưu vào hệ thống. Luật sư sẽ liên hệ lại qua SĐT ${formData.phone} ngay lập tức.`);
-        setFormData({ name: '', phone: '', service: 'Tham dự toà án & Tranh tụng', message: '' });
+        setFormData({ name: '', phone: '', service: services[0].title, message: '' });
         setTimeout(() => {
-          window.open('https://zalo.me/0918439995', '_blank');
+          window.open('https://zalo.me/0939369489', '_blank');
         }, 1500);
       } else {
         setStatus('error'); setFormError(data.error || 'Vui lòng thử lại.');
       }
     } catch (err) {
-      setStatus('error'); setFormError('Chưa thể gửi yêu cầu. Vui lòng thử lại hoặc gọi hotline 0918.439.995.');
+      setStatus('error'); setFormError('Chưa thể gửi yêu cầu. Vui lòng thử lại hoặc gọi điện thoại 0939 369 489.');
     } finally {
       setSubmitting(false);
     }
@@ -61,8 +62,8 @@ export default function ContactSection({ onShowToast }) {
               <div className="c-info-card">
                 <div className="c-icon"><i className="fa-solid fa-phone-volume"></i></div>
                 <div className="c-details">
-                  <span className="c-label">Hotline / Điện Thoại:</span>
-                  <a href="tel:0918439995" className="c-val highlight-val">0918.439.995</a>
+                  <span className="c-label">Điện thoại / Điện Thoại:</span>
+                  <a href="tel:0939369489" className="c-val highlight-val">0939 369 489</a>
                 </div>
               </div>
 
@@ -70,14 +71,14 @@ export default function ContactSection({ onShowToast }) {
                 <div className="c-icon"><i className="fa-solid fa-comments"></i></div>
                 <div className="c-details">
                   <span className="c-label">Tư Vấn Zalo Trực Tuyến:</span>
-                  <a href="https://zalo.me/0918439995" target="_blank" rel="noopener noreferrer" className="c-val">0918.439.995 (Chat Ngay)</a>
+                  <a href="https://zalo.me/0939369489" target="_blank" rel="noopener noreferrer" className="c-val">0939 369 489 (Nhắn tin ngay)</a>
                 </div>
               </div>
 
               <div className="c-info-card">
                 <div className="c-icon"><i className="fa-brands fa-facebook"></i></div>
                 <div className="c-details">
-                  <span className="c-label">Trang Facebook Fanpage:</span>
+                  <span className="c-label">Trang Facebook:</span>
                   <a href="https://www.facebook.com/Luattrana020726/" target="_blank" rel="noopener noreferrer" className="c-val">facebook.com/Luattrana020726</a>
                 </div>
               </div>
@@ -94,7 +95,7 @@ export default function ContactSection({ onShowToast }) {
                 <div className="c-icon"><i className="fa-solid fa-clock"></i></div>
                 <div className="c-details">
                   <span className="c-label">Thời Gian Làm Việc:</span>
-                  <span className="c-val">Thứ Hai – Thứ Bảy: 07:30 – 17:30 (Hỗ trợ khẩn cấp 24/7 qua Zalo)</span>
+                  <span className="c-val">Thứ 2 – Thứ 7: Sáng 7:30 – 11:00; Chiều 13:30 – 17:00</span>
                 </div>
               </div>
             </div>
@@ -103,7 +104,7 @@ export default function ContactSection({ onShowToast }) {
           <div className="contact-form-panel">
             <div className="form-wrapper">
               <h3><i className="fa-solid fa-calendar-plus"></i> Đặt Lịch Tư Vấn & Gửi Hồ Sơ</h3>
-              <p>Vui lòng điền thông tin bên dưới, thông tin sẽ được lưu trữ bảo mật vào PostgreSQL và Luật sư sẽ liên hệ lại ngay.</p>
+              <p>Vui lòng điền thông tin bên dưới, thông tin sẽ được bảo mật và Luật sư sẽ liên hệ lại ngay.</p>
 
               <form onSubmit={handleSubmit} className="site-form">
                 {status === 'success' && <div className="form-success" role="status"><span>✓</span><div><strong>Yêu cầu đã được tiếp nhận.</strong><p>Luật sư sẽ liên hệ lại với Quý khách.</p></div></div>}
@@ -144,12 +145,7 @@ export default function ContactSection({ onShowToast }) {
                     value={formData.service}
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   >
-                    <option value="Tham dự toà án & Tranh tụng">Tham dự toà án & Tranh tụng</option>
-                    <option value="Dịch vụ đất đai & Bất động sản">Dịch vụ đất đai & Bất động sản</option>
-                    <option value="Bào chữa án hình sự">Bào chữa án hình sự</option>
-                    <option value="Tranh chấp dân sự & Thừa kế">Tranh chấp dân sự & Thừa kế</option>
-                    <option value="Hôn nhân & Gia đình">Hôn nhân & Gia đình</option>
-                    <option value="Tư vấn Doanh nghiệp & Thương mại">Tư vấn Doanh nghiệp & Thương mại</option>
+                    {services.map(service => <option key={service.slug} value={service.title}>{service.title}</option>)}
                     <option value="Khác">Dịch vụ pháp lý khác</option>
                   </select>
                 </div>

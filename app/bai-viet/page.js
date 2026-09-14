@@ -27,7 +27,7 @@ export default async function Posts({ searchParams }) {
   const pageUrl = value => `/bai-viet?${new URLSearchParams({ q, category, page: String(value) })}`;
 
   return <PublicShell><main className="journal">
-    <nav aria-label="Điều hướng phụ"><Link href="/">← Luật Trần Á</Link><a href="tel:0918439995">Tư vấn: 0918.439.995</a></nav>
+    <nav aria-label="Điều hướng phụ"><Link href="/">← Luật Trần Á</Link><a href="tel:0939369489">Tư vấn: 0939 369 489</a></nav>
     <header><span>GÓC NHÌN & KIẾN THỨC</span><h1>Hiểu luật.<br /><em>Vững niềm tin.</em></h1><p>Phân tích pháp lý thực tiễn, được trình bày rõ ràng để bạn có cơ sở đưa ra quyết định.</p></header>
     <form className="journal-search"><input name="q" aria-label="Tìm bài viết" placeholder="Tìm bài viết…" defaultValue={q} /><select name="category" aria-label="Danh mục" defaultValue={category}><option value="">Tất cả danh mục</option>{categories.map(item => <option value={item.slug} key={item.id}>{item.name}</option>)}</select><button>Tìm kiếm</button></form>
     {featured && <article className="journal-featured">{featured.coverUrl && <Link href={`/bai-viet/${featured.slug}`}><img src={featured.coverUrl} alt={featured.coverAlt || featured.title} /></Link>}<div><PostMeta post={featured} /><h2><Link href={`/bai-viet/${featured.slug}`}>{featured.title}</Link></h2><p>{featured.excerpt}</p><Link className="read-link" href={`/bai-viet/${featured.slug}`}>Đọc phân tích <span>↗</span></Link></div></article>}

@@ -1,13 +1,14 @@
 'use client';
 import useDialog from './useDialog';
 
+import { services } from '@/lib/services';
 import { useState, useEffect } from 'react';
 
 export default function ConsultModal({ isOpen, onClose, selectedService, onShowToast }) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    service: 'Tham dự toà án & Tranh tụng',
+    service: services[0].title,
     message: '',
   });
   const [submitting, setSubmitting] = useState(false);
@@ -36,10 +37,10 @@ export default function ConsultModal({ isOpen, onClose, selectedService, onShowT
 
       if (data.success) {
         onShowToast(`Đã nhận yêu cầu đặt lịch từ Quý khách ${formData.name} (${formData.phone})!`);
-        setFormData({ name: '', phone: '', service: 'Tham dự toà án & Tranh tụng', message: '' });
+        setFormData({ name: '', phone: '', service: services[0].title, message: '' });
         onClose();
         setTimeout(() => {
-          window.open('https://zalo.me/0918439995', '_blank');
+          window.open('https://zalo.me/0939369489', '_blank');
         }, 1500);
       } else {
         onShowToast('Lỗi: ' + (data.error || 'Vui lòng thử lại'));
@@ -95,12 +96,7 @@ export default function ConsultModal({ isOpen, onClose, selectedService, onShowT
                 value={formData.service}
                 onChange={(e) => setFormData({ ...formData, service: e.target.value })}
               >
-                <option value="Tham dự toà án & Tranh tụng">Tham dự toà án & Tranh tụng</option>
-                <option value="Dịch vụ đất đai & Bất động sản">Dịch vụ đất đai & Bất động sản</option>
-                <option value="Bào chữa án hình sự">Bào chữa án hình sự</option>
-                <option value="Tranh chấp dân sự & Thừa kế">Tranh chấp dân sự & Thừa kế</option>
-                <option value="Hôn nhân & Gia đình">Hôn nhân & Gia đình</option>
-                <option value="Tư vấn Doanh nghiệp & Thương mại">Tư vấn Doanh nghiệp & Thương mại</option>
+                {services.map(service => <option key={service.slug} value={service.title}>{service.title}</option>)}
               </select>
             </div>
             <div className="form-group">

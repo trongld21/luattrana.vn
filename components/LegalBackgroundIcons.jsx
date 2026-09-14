@@ -2,13 +2,13 @@
 import { useEffect, useRef } from 'react';
 
 const sets = {
-  hero: ['section','scales','contract','courthouse','gavel','book'],
+  hero: ['scales','contract','courthouse','gavel','book'],
   light: ['book','contract','signature','scales','stamp','shield'],
   services: ['gavel','courthouse','shield','document','family','briefcase'],
-  dark: ['scales','courthouse','section','gavel','shield'],
-  calculator: ['calculator','scales','document','section'],
+  dark: ['scales','courthouse','gavel','shield'],
+  calculator: ['calculator','scales','document'],
   contact: ['contract','shield','signature','document'],
-  minimal: ['scales','section','contract']
+  minimal: ['scales','contract']
 };
 const limits = { low: 3, medium: 6, high: 9 };
 
@@ -27,7 +27,6 @@ function Motif({ name }) {
     briefcase:<><path d="M7 20h50v34H7V20ZM23 20v-7h18v7M7 32c13 8 37 8 50 0M28 34h8v7h-8z"/></>,
     family:<><circle cx="22" cy="20" r="7"/><circle cx="43" cy="22" r="6"/><path d="M8 49c1-11 7-17 14-17s13 6 14 17M34 36c3-5 7-7 11-6 6 1 10 7 11 16"/></>,
     calculator:<><rect x="11" y="5" width="42" height="54" rx="3"/><path d="M18 12h28v10H18zM19 31h4M30 31h4M41 31h4M19 41h4M30 41h4M41 41h4M19 51h4M30 51h4M41 51h4"/></>,
-    section:<><path d="M41 16c-2-7-16-8-19 0-4 11 22 14 18 26-3 9-20 8-22-1M24 8l17 46M39 8 22 54"/></>
   };
   return <svg viewBox="0 0 64 64" {...common}>{paths[name] || paths.scales}</svg>;
 }

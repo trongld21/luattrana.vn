@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { services } from '@/lib/services';
 
 export default function Header({ onOpenConsultModal, variant = 'home' }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -54,14 +55,14 @@ export default function Header({ onOpenConsultModal, variant = 'home' }) {
       <div className={`top-bar ${variant === 'inner' ? 'inner-top-bar' : ''}`}>
         <div className="container top-bar-content">
           <div className="top-bar-left">
-            <span className="top-item"><i className="fa-solid fa-clock"></i> Giờ làm việc: T2 - T7 (07:30 - 17:30)</span>
+            <span className="top-item"><i className="fa-solid fa-clock"></i> Giờ làm việc: Thứ 2 – Thứ 7: 7:30–11:00, 13:30–17:00</span>
             <span className="top-item d-none-mobile"><i className="fa-solid fa-shield-halved"></i> Luật Sư Tranh Tụng & Đất Đai Uy Tín</span>
           </div>
           <div className="top-bar-right">
-            <a href="tel:0918439995" className="top-link phone-link"><i className="fa-solid fa-phone"></i> <strong>0918.439.995</strong></a>
-            <a href="https://zalo.me/0918439995" target="_blank" rel="noopener noreferrer" className="top-link zalo-link"><i className="fa-solid fa-comment-dots"></i> Tư vấn Zalo</a>
+            <a href="tel:0939369489" className="top-link phone-link"><i className="fa-solid fa-phone"></i> <strong>0939 369 489</strong></a>
+            <a href="https://zalo.me/0939369489" target="_blank" rel="noopener noreferrer" className="top-link zalo-link"><i className="fa-solid fa-comment-dots"></i> Tư vấn Zalo</a>
             <a href="https://maps.app.goo.gl/sRYWsP2hmoNTCVvw8?g_st=ic" target="_blank" rel="noopener noreferrer" className="top-link maps-link"><i className="fa-solid fa-location-dot"></i> Google Maps</a>
-            <a href="https://www.facebook.com/Luattrana020726/" target="_blank" rel="noopener noreferrer" className="top-link fb-link"><i className="fa-brands fa-facebook-f"></i> Fanpage</a>
+            <a href="https://www.facebook.com/Luattrana020726/" target="_blank" rel="noopener noreferrer" className="top-link fb-link"><i className="fa-brands fa-facebook-f"></i> Trang Facebook</a>
           </div>
         </div>
       </div>
@@ -73,27 +74,18 @@ export default function Header({ onOpenConsultModal, variant = 'home' }) {
             <img src="/logo.svg" alt="Công ty Luật Trần Á Logo" className="logo-img" />
             <div className="brand-text">
               <span className="brand-title">CÔNG TY LUẬT TRẦN Á</span>
-              <span className="brand-subtitle">TRAN A LAW FIRM • UY TÍN - TẬN TÂM - HIỆU QUẢ</span>
+              <span className="brand-subtitle">TRÁCH NHIỆM – NIỀM TIN</span>
             </div>
           </a>
 
           <nav className="main-nav">
             <ul>
               <li><a href={homeHref('#hero')} className={`nav-link ${variant === 'home' ? 'active' : ''}`}>Trang Chủ</a></li>
-              <li><a href={homeHref('#about')} className="nav-link">Giới Thiệu</a></li>
+              <li><a href={homeHref('#thu-tuc-hanh-chinh')} className="nav-link">Thủ Tục Hành Chính</a></li>
               <li className="has-dropdown">
                 <a href={homeHref('#services')} className="nav-link">Lĩnh Vực Dịch Vụ <i className="fa-solid fa-chevron-down dropdown-icon"></i></a>
-                <ul className="dropdown-menu">
-                  <li><a href="/linh-vuc/tranh-tung-toa-an"><span>01 — Tranh tụng & Tòa án</span></a></li>
-                  <li><a href="/linh-vuc/dat-dai-bat-dong-san"><span>02 — Đất đai & Bất động sản</span></a></li>
-                  <li><a href="/linh-vuc/bao-chua-hinh-su"><span>03 — Hình sự</span></a></li>
-                  <li><a href="/linh-vuc/dan-su-thua-ke"><span>04 — Dân sự & Thừa kế</span></a></li>
-                  <li><a href="/linh-vuc/hon-nhan-gia-dinh"><span>05 — Hôn nhân & Gia đình</span></a></li>
-                  <li><a href="/linh-vuc/doanh-nghiep-thuong-mai"><span>06 — Doanh nghiệp & Thương mại</span></a></li>
-                </ul>
+                <ul className="dropdown-menu">{services.map(service => <li key={service.slug}><a href={`/linh-vuc/${service.slug}`}><span>{service.number} — {service.shortTitle}</span></a></li>)}</ul>
               </li>
-              <li><a href={homeHref('#calculator')} className="nav-link"><i className="fa-solid fa-calculator"></i> Tính Án Phí</a></li>
-              <li><a href={homeHref('#legal-docs')} className="nav-link">Biểu Mẫu & Án Lệ</a></li>
               <li><a href="/bai-viet" className="nav-link">Bài Viết</a></li>
               <li><a href={homeHref('#contact')} className="nav-link">Liên Hệ</a></li>
             </ul>
@@ -123,17 +115,15 @@ export default function Header({ onOpenConsultModal, variant = 'home' }) {
           </div>
           <ul className="drawer-menu">
             <li><a href={homeHref('#hero')} className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-house"></i> Trang Chủ</a></li>
-            <li><a href={homeHref('#about')} className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-building-user"></i> Giới Thiệu</a></li>
+            <li><a href={homeHref('#thu-tuc-hanh-chinh')} className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-building-user"></i> Thủ Tục Hành Chính</a></li>
             <li><a href={homeHref('#services')} className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-gavel"></i> Lĩnh Vực Dịch Vụ</a></li>
-            <li><a href={homeHref('#calculator')} className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-calculator"></i> Tính Án Phí Tố Tụng</a></li>
-            <li><a href={homeHref('#legal-docs')} className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-file-contract"></i> Tra Cứu Án Lệ & Biểu Mẫu</a></li>
             <li><a href="/bai-viet" className="mobile-nav-link">Kiến thức pháp lý & Bài viết</a></li>
             <li><a href={homeHref('#contact')} className="mobile-nav-link" onClick={() => setMobileOpen(false)}><i className="fa-solid fa-address-book"></i> Liên Hệ & Bản Đồ</a></li>
           </ul>
           <div className="drawer-contact-info">
-            <p><i className="fa-solid fa-phone"></i> Hotline: <a href="tel:0918439995">0918.439.995</a></p>
-            <p><i className="fa-solid fa-comment"></i> Zalo: <a href="https://zalo.me/0918439995" target="_blank" rel="noopener noreferrer">Tư vấn trực tiếp</a></p>
-            <p><i className="fa-brands fa-facebook"></i> Facebook: <a href="https://www.facebook.com/Luattrana020726/" target="_blank" rel="noopener noreferrer">Fanpage Luật Trần Á</a></p>
+            <p><i className="fa-solid fa-phone"></i> Điện thoại: <a href="tel:0939369489">0939 369 489</a></p>
+            <p><i className="fa-solid fa-comment"></i> Zalo: <a href="https://zalo.me/0939369489" target="_blank" rel="noopener noreferrer">Tư vấn trực tiếp</a></p>
+            <p><i className="fa-brands fa-facebook"></i> Facebook: <a href="https://www.facebook.com/Luattrana020726/" target="_blank" rel="noopener noreferrer">Trang Facebook Luật Trần Á</a></p>
           </div>
         </div>
       </div>
